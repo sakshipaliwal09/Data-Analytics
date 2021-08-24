@@ -1,5 +1,5 @@
 # Google Data Analytics Certification Program : Capstone Project
-## Project Name: Cyclistic Bike Share
+# Project Name: Cyclistic Bike Share
 
 # About the company
 In 2016, Cyclistic launched a successful bike-share offering. Since then, the program has grown to a fleet of 5,824 bicycles that
@@ -29,16 +29,16 @@ interested in analyzing the Cyclistic historical bike trip data to identify tren
 
 __________________________________________________________________________________________________________________________
 
-## Scenario:
+# Scenario:
 
 In this case study, I am a junior data analyst working in the marketing analyst team at Cyclistic, a bike-share company(Fictional Company) in Chicago. The director of marketing believes the company’s future success depends on maximizing the number of annual memberships. Therefore, my team wants to understand how casual riders and annual members use Cyclistic bikes differently. From these insights, my team will design a new marketing strategy to convert casual riders into annual members. 
 
-## Business Task:
+# Business Task:
 
 How do annual members and casual riders use Cyclistic bikes
 differently?
 
-## Data Preparation & Cleaning Process:
+# Data Preparation & Cleaning Process:
 
 Data Source Description: Cyclistic’s historical 12 months trip data (From July2020 To June2021) - This is a public Data that has been used in this project to explore how different customer types are using Cyclistic bikes. But data-privacy issues prohibits from using riders’ personally identifiable information. This data is located on Amazon Web Services and has been downloaded and stored on my computer appropriately for further analysis.
 
