@@ -44,7 +44,19 @@ Data Source Description: Cyclistic’s historical 12 months trip data (From July
 
 The following steps have taken
 
--Imported Data.
--Made columns consistent and merge them into a single dataframe.
--Cleaned up and added data to prepare for analysis.
--Conducted descriptive analysis.
+### *Imported Data.
+### *Made columns consistent and merge them into a single dataframe.
+### *Cleaned up and added data to prepare for analysis.
+
+## **Note - Due to huge amount of data, I am using only R**
+
+# Analyze, Share & Act
+
+*Conducted descriptive analysis and prepared powerpoint presentation to share with the stakeholders.
+
+# R Script - Click Here
+# Presenation - Click Here
+
+# Thank you for stopping by and looking through my project!
+
+
