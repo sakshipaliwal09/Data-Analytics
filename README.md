@@ -48,8 +48,6 @@ The following steps have taken
 ###### *Made columns consistent and merge them into a single dataframe.
 ###### *Cleaned up and added data to prepare for analysis.
 
-###### **Note - Due to huge amount of data, I am using only R**
-
 # Analyze, Share & Act
 
 *Conducted descriptive analysis and prepared powerpoint presentation to share with the stakeholders.
@@ -57,6 +55,10 @@ The following steps have taken
 ###### R Script - [Click Here](/Data-Analytics/blob/main/R%20Script%20Analysis.Rmd)
 ###### Presenation - [Click Here](/Data-Analytics/blob/main/CYCLISTIC%20BIKE-SHARE_PRESENTATION.pptx)
 
-# Thank you for stopping by and looking through my project!
+
+###### **Note - Due to huge amount of data, I have used only R**
+
+# Thank you for stopping by and reading through my project!
+
 
 
