@@ -52,7 +52,7 @@ The following steps have taken
 
 *Conducted descriptive analysis and prepared powerpoint presentation to share with the stakeholders.
 
-###### R Script - [Click Here](/Data-Analytics/blob/main/R%20Script%20Analysis.Rmd)
+###### R Script - [Click Here](https://github.com/sakshipaliwal09/Data-Analytics/blob/0ae935abf3cff7672384ce45ca287a22589aafa4/R%20Script%20Analysis.Rmd)
 ###### Presenation - [Click Here](https://github.com/sakshipaliwal09/Data-Analytics/blob/0ae935abf3cff7672384ce45ca287a22589aafa4/CYCLISTIC%20BIKE-SHARE_PRESENTATION.pptx)
 
 
