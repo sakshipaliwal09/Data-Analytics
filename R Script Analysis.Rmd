@@ -1,0 +1,297 @@
+---
+title: "Google Data Analytics Capstone Project-Bike-Share"
+author: "Sakshi"
+date: "8/2/2021"
+output: html_document
+---
+
+## Setting up my R environmnet by installing and loading required packages
+
+```{r}
+install.packages("tidyverse")
+install.packages("dplyr")
+install.packages("lubridate")
+install.packages("ggplot2")
+library(tidyverse)
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+```
+
+## Setting up the working directory where the data files are saved.
+
+```{r}
+setwd("/Users/saksh/Desktop/Data Analytics Capstone Project/Data/Unzipped Files/.CSV")
+```
+
+# STEP 1: COLLECT DATA
+## Loading and renaming all the data files (12 Months) to make easier to work on
+
+```{r}
+Jul_2020 <- read.csv("202007-divvy-tripdata.csv")
+Aug_2020 <- read.csv("202008-divvy-tripdata.csv")  
+Sep_2020 <- read.csv("202009-divvy-tripdata.csv")
+Oct_2020 <- read.csv("202010-divvy-tripdata.csv")
+Nov_2020 <- read.csv("202011-divvy-tripdata.csv")
+Dec_2020 <- read.csv("202012-divvy-tripdata.csv")
+Jan_2021 <- read.csv("202101-divvy-tripdata.csv")
+Feb_2021 <- read.csv("202102-divvy-tripdata.csv")
+Mar_2021 <- read.csv("202103-divvy-tripdata.csv")
+Apr_2021 <- read.csv("202104-divvy-tripdata.csv")
+May_2021 <- read.csv("202105-divvy-tripdata.csv")
+Jun_2021 <- read.csv("202106-divvy-tripdata.csv")
+```
+
+# STEP 2 - COMPARE COLUMN NAMES EACH OF THE FILES
+## Each file has 13 Column Names but, need to check if they are same in all the files by quering the below functions.
+
+```{r}
+colnames(Jul_2020)
+colnames(Aug_2020)
+colnames(Sep_2020)
+colnames(Oct_2020)
+colnames(Nov_2020)
+colnames(Dec_2020)
+colnames(Jan_2021)
+colnames(Feb_2021)
+colnames(Mar_2021)
+colnames(Apr_2021)
+colnames(May_2021)
+colnames(Jun_2021)
+```
+## To view and compare data structure
+```{r}
+str(Jul_2020)
+str(Aug_2020)
+str(Sep_2020)
+str(Oct_2020)
+str(Nov_2020)
+str(Dec_2020)
+str(Jan_2021)
+str(Feb_2021)
+str(Mar_2021)
+str(Apr_2021)
+str(May_2021)
+str(Jun_2021)
+```
+
+# STEP 3 - MAKE CHANGES IF THERE ARE ANY DIFFERENCE IN FILES
+## By comparing structure of all the files, I found that start_station_id and end_station_id needs to be converted into character to make field's data type consistent because they are different in other files.
+
+```{r}
+Jul_2020 <- mutate(Jul_2020, start_station_id = as.character(start_station_id), end_station_id = as.character(end_station_id))
+Aug_2020 <- mutate(Aug_2020, start_station_id = as.character(start_station_id), end_station_id = as.character(end_station_id))
+Sep_2020 <- mutate(Sep_2020, start_station_id = as.character(start_station_id), end_station_id = as.character(end_station_id))
+Oct_2020 <- mutate(Oct_2020, start_station_id = as.character(start_station_id), end_station_id = as.character(end_station_id))
+Nov_2020 <- mutate(Nov_2020, start_station_id = as.character(start_station_id), end_station_id = as.character(end_station_id))
+Dec_2020 <- mutate(Dec_2020, start_station_id = as.character(start_station_id), end_station_id = as.character(end_station_id))
+Jan_2021 <- mutate(Jan_2021, start_station_id = as.character(start_station_id), end_station_id = as.character(end_station_id))
+Feb_2021 <- mutate(Feb_2021, start_station_id = as.character(start_station_id), end_station_id = as.character(end_station_id))
+Mar_2021 <- mutate(Mar_2021, start_station_id = as.character(start_station_id), end_station_id = as.character(end_station_id))
+Apr_2021 <- mutate(Apr_2021, start_station_id = as.character(start_station_id), end_station_id = as.character(end_station_id))
+May_2021 <- mutate(May_2021, start_station_id = as.character(start_station_id), end_station_id = as.character(end_station_id))
+Jun_2021 <- mutate(Jun_2021, start_station_id = as.character(start_station_id), end_station_id = as.character(end_station_id))
+```
+
+# STEP 4 - WRANGLE DATA AND COMBINE INTO A SINGLE FILE
+## Consolidate all the data into one file.
+
+```{r}
+consolidated_data <- bind_rows(Jul_2020, Aug_2020, Sep_2020, Oct_2020, Nov_2020, Dec_2020, Jan_2021, Feb_2021, Mar_2021, Apr_2021, May_2021, Jun_2021)
+```
+
+## To view if the consolidated_data is aligned and created correctly, executing following functions to review the data.
+## See first 6 rows, check column names, Data Summary, Structure of Data, Rows in data frame & Dimensions of the data frame.
+```{r}
+head(consolidated_data)
+```
+```{r}
+colnames(consolidated_data)
+```
+```{r}
+summary(consolidated_data)
+```
+```{r}
+str(consolidated_data)
+```
+```{r}
+nrow(consolidated_data)
+```
+```{r}
+dim(consolidated_data)
+```
+
+
+## To do more detailed analysis, 5 columns (Date, Month, Day, Year and day of week) needs to be created.
+
+```{r}
+consolidated_data$date <- as.Date(consolidated_data$started_at)
+consolidated_data$month <- format(as.Date(consolidated_data$date), "%m")
+consolidated_data$day <- format(as.Date(consolidated_data$date), "%d")
+consolidated_data$year <- format(as.Date(consolidated_data$date), "%Y")
+consolidated_data$day_of_week <- format(as.Date(consolidated_data$date), "%A")
+```
+
+## New calculated column to add for analysis like "ride_length" (time difference between started_at and ended_at)
+
+```{r}
+consolidated_data$ride_length <- difftime(consolidated_data$ended_at,consolidated_data$started_at)
+```
+
+## Inspect the structure of data
+
+```{r}
+str(consolidated_data)
+```
+
+## Convert "ride_length" from factor to numeric so that we can run calculations on the data
+
+```{r}
+consolidated_data$ride_length <- as.numeric(as.character(consolidated_data$ride_length))
+```
+
+## Remove "bad" data
+## The dataframe includes a few hundred entries when bikes were taken out of docks and checked for quality by Divvy or ride_length was negative
+## We will create a new version of the dataframe (v2) since data is being removed
+
+```{r}
+consolidated_data_v2 <- consolidated_data[!(consolidated_data$start_station_name == "HQ QR" | consolidated_data$ride_length<0),]
+```
+
+# STEP 5: CONDUCT DESCRIPTIVE ANALYSIS
+## Descriptive analysis on ride_length
+## Straight Average, midpoint number in the ascending array of ride lengths, longest ride and shortest ride 
+```{r}
+mean(consolidated_data_v2$ride_length)
+```
+```{r}
+median(consolidated_data_v2$ride_length)
+```
+```{r}
+min(consolidated_data$ride_length)
+```
+```{r}
+max(consolidated_data$ride_length)
+```
+
+## Compare members and casual users.
+```{r}
+aggregate(consolidated_data_v2$ride_length ~ consolidated_data_v2$member_casual, FUN = mean)
+aggregate(consolidated_data_v2$ride_length ~ consolidated_data_v2$member_casual, FUN = median)
+aggregate(consolidated_data_v2$ride_length ~ consolidated_data_v2$member_casual, FUN = max)
+aggregate(consolidated_data_v2$ride_length ~ consolidated_data_v2$member_casual, FUN = min)
+```
+
+# See the average ride time by each day for members vs casual users
+
+```{r}
+aggregate(consolidated_data_v2$ride_length ~ consolidated_data_v2$member_casual + consolidated_data_v2$day_of_week, FUN = mean)
+```
+
+## Notice that the days of the week are out of order. Let's fix that.
+
+```{r}
+consolidated_data_v2$day_of_week <- ordered(consolidated_data_v2$day_of_week, levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+```
+
+# Now, let's run the average ride time by each day for members vs casual users
+
+```{r}
+aggregate(consolidated_data_v2$ride_length ~ consolidated_data_v2$member_casual + consolidated_data_v2$day_of_week, FUN = mean)
+```
+
+## Analyze ridership data by user type and weekday
+## This function will show Weekday, Number of rides and average duration by user type.
+```{r}
+consolidated_data_v2 %>% 
+  mutate(weekday = wday(started_at, label = TRUE)) %>%
+  group_by(member_casual, weekday) %>%  
+  summarise(number_of_rides = n() ,average_duration = mean(ride_length)) %>% 
+  arrange(member_casual, weekday)							
+```
+
+# STEP 6 : Disable Scientific Notation of ggplot2 Axis
+## The scales package is needed to change the numbers of our plot axes
+
+```{r}
+install.packages("scales")
+```
+
+```{r}
+library(scales)
+```
+
+## Let's create visualization by total average duration by user type for last 12 months
+
+```{r}
+consolidated_data_v2 %>% 
+   group_by(member_casual) %>%
+  summarise (average_duration = mean(ride_length)) %>%
+  arrange(member_casual) %>%
+  ggplot(aes(x = member_casual, y = average_duration , fill = member_casual)) +
+  geom_col(position = "dodge") +
+  scale_y_time()
+```
+
+## Let's create visualization by no. of rides by user type for last 12 months
+
+```{r}
+consolidated_data_v2 %>% 
+   group_by(member_casual) %>%
+  summarise (number_of_rides = n() ,average_duration = mean(ride_length)) %>%
+  arrange(member_casual) %>%
+  ggplot(aes(x = member_casual, y = number_of_rides , fill = member_casual)) +
+  geom_col(position = "dodge") +
+  scale_y_continuous(labels = comma)
+```
+
+## Let's visualize the number of rides by rider type during the week
+
+```{r}
+consolidated_data_v2 %>% 
+  mutate(weekday = wday(started_at, label = TRUE)) %>% 
+  group_by(member_casual, weekday) %>% 
+  summarise(number_of_rides = n() ,average_duration = mean(ride_length)) %>% 
+  arrange(member_casual, weekday)  %>% 
+  ggplot(aes(x = weekday, y = number_of_rides, fill = member_casual)) +
+    geom_col(position = "dodge") +
+    scale_y_continuous(labels = comma)
+```
+
+
+## Let's create a visualization for average duration during the week
+
+```{r}
+consolidated_data_v2 %>% 
+  mutate(weekday = wday(started_at, label = TRUE)) %>% 
+  group_by(member_casual, weekday) %>% 
+  summarise(number_of_rides = n() ,average_duration = mean(ride_length)) %>% 
+  arrange(member_casual, weekday)  %>% 
+  ggplot(aes(x = weekday, y = average_duration, fill = member_casual)) +
+  geom_col(position = "dodge") +
+  scale_y_time()
+```
+
+## Let's create a visualization for total number of rides by month
+
+```{r}
+consolidated_data_v2 %>% 
+  group_by(member_casual, month) %>% 
+  summarise(number_of_rides = n() ,average_duration = mean(ride_length)) %>% 
+  arrange(member_casual, month)  %>% 
+  ggplot(aes(x = month , y = average_duration, fill = member_casual)) +
+  geom_col(position = "dodge") +
+  scale_y_time()
+```
+
+## Let's create a visualization for popular bikes by user type
+
+```{r}
+consolidated_data_v2 %>% 
+  group_by(member_casual, rideable_type) %>%
+  summarise(number_of_rides = n()) %>%
+  arrange(member_casual, rideable_type) %>%
+  ggplot(aes(x = rideable_type, y = number_of_rides, fill = member_casual)) +
+  geom_col(position = "dodge") +
+  scale_y_continuous(labels = comma)
+```
