@@ -53,7 +53,7 @@ The following steps have taken
 *Conducted descriptive analysis and prepared powerpoint presentation to share with the stakeholders.
 
 ###### R Script - [Click Here](https://github.com/sakshipaliwal09/Data-Analytics/blob/0ae935abf3cff7672384ce45ca287a22589aafa4/R%20Script%20Analysis.Rmd)
-###### Presenation - [Click Here](https://github.com/sakshipaliwal09/Data-Analytics/blob/0ae935abf3cff7672384ce45ca287a22589aafa4/CYCLISTIC%20BIKE-SHARE_PRESENTATION.pptx)
+###### Presenation - [Click Here](https://github.com/sakshipaliwal09/Data-Analytics/blob/e70912d4b8489dcf9384a2d3c7f9efabf425796f/CYCLISTIC%20BIKE-SHARE_PRESENTATION.pptx)
 
 
 ###### **Note - Due to huge amount of data, I have used only R**
